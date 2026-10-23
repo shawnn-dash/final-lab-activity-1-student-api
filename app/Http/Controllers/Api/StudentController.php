@@ -37,6 +37,7 @@ class StudentController extends Controller
     }
 
     // UPDATE STUDENT
+
     public function update(Request $request, Student $student)
     {
         $validated = $request->validate([
@@ -54,8 +55,12 @@ class StudentController extends Controller
 
         $student->update($validated);
 
-        return response()->json($student);
+        return response()->json([
+            'message' => 'Student updated successfully.',
+            'student' => $student->refresh()
+        ], 200);
     }
+
 
     // DELETE STUDENT
     public function destroy(Student $student)
